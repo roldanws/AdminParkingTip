@@ -1,0 +1,29 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block background %}{% static 'core/img/dashboard-bg.jpg' %}{% endblock %}
+
+{% block content %}
+    {% for sucursal in sucursales %}
+
+    <div class="row project">  	
+        <div class="col-lg-3 col-md-4 offset-lg-1">
+            
+        </div>
+    <div class="col-lg-7 col-md-8">
+            <h2 class="section-heading title">{{sucursal.nombre}}</h2>   
+        <p>Ingresos: {{sucursal.ingreso_actual}}</p>
+        <p><a href="http://google.com">Más información</a></p>
+        </div>
+    </div>
+
+    {% endfor %}
+{% endblock %}
+
+{% block tittle %} Dashboard {% endblock %}
+
+{% block subtittle %} 
+    <h1>Sucursales</h1>
+    <span class="subheading">Resumen</span>
+{% endblock %}

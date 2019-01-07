@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mi web Personal |  {% block tittle %} {% endblock %} </title>
+</head>
+<body>
+    <h1>Mi web Personal</h1>
+    <ul>
+        <li><a href="{% url 'home' %}">Inicio</a></li>
+        <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+        <li><a href="{% url 'about-me' %}">Acerca de</a></li>
+        <li><a href="{% url 'contact' %}">Contacto</a></li>
+    </ul>
+    {% block content %} {% endblock %}
+</body>
+</html>
+
