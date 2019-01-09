@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-
+        
 
 
         <div class="row">
@@ -11,6 +11,21 @@
                     <h1 class="page-header">Corte General</h1>
                     
                 </div>
+
+                {% if request.GET %} 
+                    {% if corte_list %}
+                         <div class="col-lg-12">
+                            <h5  style="color:green">  Cortes de {{request.GET.q}} a {{request.GET.q2}}</h5>
+                            <hr>
+                        </div>
+                        
+                        {% else %} 
+                        <div class="col-lg-12">
+                            <h5  style="color:#FF0000">  No se encontraron cortes en ese intervalo</h5>
+                             <hr>
+                        </div>
+                        {% endif %}
+                {% endif %}
                 <!-- /.col-lg-12 -->
         </div>
         
@@ -28,23 +43,16 @@
         </form>
 
 
+       
         
-
-
-
 
 
         <hr>
 
 
-            {% if corte_list %}  
-                 si
-            {% else %}    
-               no
-            {% endif %}
+            
 
-
-
+            
             {% for sucursal in corte_list %}
             {% with forloop.counter as foo_num %}
 
