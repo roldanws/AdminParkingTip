@@ -30,9 +30,11 @@ class SucursalListView(ListView):
         if query:
             sucursales = sucursales.filter(nombre__icontains=query)
         for sucursal in sucursales:
-            suma_parcial=Sucursal.objects.get(id=sucursal.id).get_cortes.all().aggregate(Sum('ingreso'))['ingreso__sum']
-            suma.append(suma_parcial)
-            total=total+suma_parcial
+            cortes=Sucursal.objects.get(id=sucursal.id).get_cortes.all()
+            if(cortes):
+                suma_parcial=cortes.aggregate(Sum('ingreso'))['ingreso__sum']
+                suma.append(suma_parcial)
+                total=total+suma_parcial
         #suma = Sucursal.objects.filter(nombre__contains='oln').aggregate(Sum('ingreso_actual'))
         suma=suma[::-1]
         print(suma[::-1])
