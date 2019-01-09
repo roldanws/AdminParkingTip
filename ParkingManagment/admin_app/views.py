@@ -20,6 +20,11 @@ def index(request):
     
     suma=suma[::-1]
     print(suma[::-1])
+
+    query = request.GET.get('s')  
+    if query:
+        sucursales = sucursales.filter(nombre__icontains=query)
+
     return render(request, 'admin_app/dashboard.html', {'sucursales':sucursales,'suma':suma,'total':total} )
 
 '''class CorteApiList(generics.ListCreateAPIView):
@@ -37,10 +42,23 @@ def index(request):
 
 class CorteListView(ListView):
     model = Corte
-
     def get_queryset(self):
+        #context['temp'] = self.request.GET.get('temp') 
+
         self.sucursal_id = get_object_or_404(Sucursal, id=self.kwargs['sucursal_id'])
-        return Corte.objects.filter(sucursal_id=self.sucursal_id)
+        cortes = Corte.objects.filter(sucursal_id=self.sucursal_id)
+        query = self.request.GET.get('q') 
+        query2 = self.request.GET.get('q2') 
+        #mes = self.request.GET.get('mes') 
+        #anio = self.request.GET.get('anio') 
+        if query:
+            cortes = cortes.filter(created__range=[query, query2])
+            if cortes:
+                pass
+            else:
+                cortes = Corte.objects.filter(sucursal_id=self.sucursal_id)
+        return cortes
+    
     #sucursal = Sucursal.objects.get(id=sucursal_id)
     #return render(request, 'admin_app/page_details.html',{'sucursal':sucursal})
 
@@ -50,6 +68,13 @@ class SucursalDetailView(DetailView):
     #sucursal = Sucursal.objects.get(id=sucursal_id)
     #return render(request, 'admin_app/page_details.html',{'sucursal':sucursal})
     
+def search(request):
+    cortes=Corte.objects.all()
+    query = request.GET.get('q')
+    if query:
+        cortes = Corte.objects.filter(created__icontains)
+        
+    return render(request, 'admin_app/tables.html')
 
 def tables(request):
     return render(request, 'admin_app/tables.html')

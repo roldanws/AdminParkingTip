@@ -25,7 +25,7 @@ SECRET_KEY = 'w@7#9nocnem#pdruw5cz@br#j%-_evkib*6he+16bfutg#bpr6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS =['*']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core',
+   'core',
     'sucursales.apps.SucursalesConfig',
     'admin_app',
     'bootstrap_datepicker_plus',
@@ -88,8 +88,8 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 '''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -100,9 +100,8 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
 '''
-
-
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 

@@ -13,24 +13,36 @@
                 </div>
                 <!-- /.col-lg-12 -->
         </div>
-            
-            
+        
+        <form class="form-inline my-2 my-lg-0">
+                Fecha inicio
+                <input class="form-control mr-sm-2"  type="date" placeholder="Day" arial-label="Search" name="q" required >
+               
+               
+                 Fecha fin
+                <input class="form-control mr-sm-2" type="date" placeholder="Day" arial-label="Search" name="q2" required>
+                
+                <button class="btn btn-primary my-4 my-sm-0" type="Submit">Filtrar...              
+                            <i class="fa fa-search"></i>
+                </button>
+        </form>
+
+
+        
+
+
+
+
+
+        <hr>
+        
 
             {% for sucursal in corte_list %}
             {% with forloop.counter as foo_num %}
 
 
 
-            {% if sucursal.created|date:"F Y" != "Diciembre 2018" %}    
-            <div class="row">
- 
-                <div class="col-lg-12">
-                    <h1 class="page-header">{{sucursal.created|date:"F Y"}}</h1>
-                    
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            {% endif %}
+            
 
 
             
