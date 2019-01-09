@@ -3,43 +3,48 @@ from .models import Sucursal,Corte
 from django.db.models import Sum
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
+from django.contrib.admin.views.decorators import staff_member_required
+from django.utils.decorators import method_decorator
 from rest_framework import generics
-#from .serializers import CorteSerializer
 
-
-def index(request):
+class StaffRequiredMixin(object):
+    @method_decorator(staff_member_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(StaffRequiredMixin, self).dispatch(request, *args, **kwargs)
     
-    sucursales = Sucursal.objects.all()
-    suma = []
-    total=0
-    for sucursal in sucursales:
-        suma_parcial=Sucursal.objects.get(id=sucursal.id).get_cortes.all().aggregate(Sum('ingreso'))['ingreso__sum']
-        suma.append(suma_parcial)
-        total=total+suma_parcial
-    #suma = Sucursal.objects.filter(nombre__contains='oln').aggregate(Sum('ingreso_actual'))
-    
-    suma=suma[::-1]
-    print(suma[::-1])
+@method_decorator(staff_member_required, name="dispatch")
+class SucursalListView(ListView):
+    model = Sucursal
+    def get_queryset(self):
+        sucursales = Sucursal.objects.all()
+        query = self.request.GET.get('s')  
+        if query:
+            sucursales = sucursales.filter(nombre__icontains=query)
+        return sucursales
 
-    query = request.GET.get('s')  
-    if query:
-        sucursales = sucursales.filter(nombre__icontains=query)
+    def get_context_data(self, **kwargs):
+        sucursales = Sucursal.objects.all()
+        suma = []
+        total=0
+        query = self.request.GET.get('s')  
+        if query:
+            sucursales = sucursales.filter(nombre__icontains=query)
+        for sucursal in sucursales:
+            suma_parcial=Sucursal.objects.get(id=sucursal.id).get_cortes.all().aggregate(Sum('ingreso'))['ingreso__sum']
+            suma.append(suma_parcial)
+            total=total+suma_parcial
+        #suma = Sucursal.objects.filter(nombre__contains='oln').aggregate(Sum('ingreso_actual'))
+        suma=suma[::-1]
+        print(suma[::-1])
 
-    return render(request, 'admin_app/dashboard.html', {'sucursales':sucursales,'suma':suma,'total':total} )
-
-'''class CorteApiList(generics.ListCreateAPIView):
-    queryset = Corte.objects.all()
-    serializer_class = CorteSerializer
-    def get_object(self):
-        queryset = self.get_queryset()
-        obj = get_object_or_404(
-            queryset, 
-            pk=self.kwargs['pk'],
-        )
-        return obj'''
+        
+        context = super().get_context_data(**kwargs)
+        context['suma']=suma
+        context['total']=total
+        return context
 
 
-
+@method_decorator(staff_member_required, name="dispatch")
 class CorteListView(ListView):
     model = Corte
     def get_queryset(self):
@@ -55,23 +60,13 @@ class CorteListView(ListView):
             cortes = cortes.filter(created__range=[query, query2])
             
         return cortes
-    
-    #sucursal = Sucursal.objects.get(id=sucursal_id)
-    #return render(request, 'admin_app/page_details.html',{'sucursal':sucursal})
 
-
+@method_decorator(staff_member_required, name="dispatch")
 class SucursalDetailView(DetailView):
     model = Sucursal
     #sucursal = Sucursal.objects.get(id=sucursal_id)
     #return render(request, 'admin_app/page_details.html',{'sucursal':sucursal})
     
-def search(request):
-    cortes=Corte.objects.all()
-    query = request.GET.get('q')
-    if query:
-        cortes = Corte.objects.filter(created__icontains)
-        
-    return render(request, 'admin_app/tables.html')
 
 def tables(request):
     return render(request, 'admin_app/tables.html')

@@ -1,11 +1,11 @@
 from django.urls import path
 from . import views
-from .views import SucursalDetailView,CorteListView
+from .views import SucursalDetailView,CorteListView,SucursalListView
 
 
 app_name = 'admin_app'
 urlpatterns = [
-    path('', views.index, name='index'),
+#    path('', views.index, name='index'),
     path('tables', views.tables, name='tables'),
     path('flot', views.flot, name='flot'),
     path('morris', views.morris, name='morris'),
@@ -20,5 +20,6 @@ urlpatterns = [
     path('login', views.login, name='login'),
     path('sucursal/<int:pk>/', SucursalDetailView.as_view(), name='sucursal'),
     path('cortes/<int:sucursal_id>/', CorteListView.as_view(), name='corte'),    
+    path('', SucursalListView.as_view(), name='index'),    
     #path('', SucursalListView.as_view(), name='sucursal'),
 ]
