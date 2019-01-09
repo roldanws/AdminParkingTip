@@ -53,10 +53,7 @@ class CorteListView(ListView):
         #anio = self.request.GET.get('anio') 
         if query:
             cortes = cortes.filter(created__range=[query, query2])
-            if cortes:
-                pass
-            else:
-                cortes = Corte.objects.filter(sucursal_id=self.sucursal_id)
+            
         return cortes
     
     #sucursal = Sucursal.objects.get(id=sucursal_id)

@@ -35,7 +35,15 @@
 
 
         <hr>
-        
+
+
+            {% if corte_list %}  
+                 si
+            {% else %}    
+               no
+            {% endif %}
+
+
 
             {% for sucursal in corte_list %}
             {% with forloop.counter as foo_num %}
