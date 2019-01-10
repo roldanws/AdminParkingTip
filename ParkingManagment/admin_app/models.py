@@ -36,6 +36,7 @@ class Corte(models.Model):
     created = models.DateTimeField(verbose_name = 'Fecha de corte', default = now)
     updated = models.DateTimeField(auto_now=True, verbose_name = 'Fecha de ultima modificacion')
     ingreso = models.DecimalField(verbose_name='Ingreso', max_digits=15, decimal_places=2)
+    detalles = models.TextField(verbose_name='Detalles')
     encargado = models.ForeignKey(User, verbose_name = 'Encargado', on_delete = models.CASCADE)
     sucursal_id = models.ForeignKey(Sucursal, verbose_name = 'Sucursal', related_name='get_cortes', on_delete = models.CASCADE)
 
