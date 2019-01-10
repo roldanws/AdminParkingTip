@@ -41,7 +41,7 @@ INSTALLED_APPS = [
 #    'sucursales.apps.SucursalesConfig',
     'admin_app',
 #    'bootstrap_datepicker_plus',
-    'bootstrap3',
+#    'bootstrap3',
     'demo_app.apps.DemoAppConfig',
     'rest_framework',
 #    'api',
