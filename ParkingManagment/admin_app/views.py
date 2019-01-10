@@ -73,6 +73,12 @@ class SucursalDetailView(DetailView):
     #sucursal = Sucursal.objects.get(id=sucursal_id)
     #return render(request, 'admin_app/page_details.html',{'sucursal':sucursal})
     
+@method_decorator(staff_member_required, name="dispatch")
+class CorteDetailView(DetailView):
+    model = Corte
+    #sucursal = Sucursal.objects.get(id=sucursal_id)
+    #return render(request, 'admin_app/page_details.html',{'sucursal':sucursal})
+    
 
 def tables(request):
     return render(request, 'admin_app/tables.html')

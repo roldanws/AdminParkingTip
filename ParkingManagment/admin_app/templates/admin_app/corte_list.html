@@ -88,12 +88,11 @@
                                 <div >Boletaje: {{sucursal.boletaje}} </div>
                                 <div >Recuperados: {{sucursal.recuperados}}</div>
                                 <div >Caja: {{sucursal.caja}}</div>
-                                <div >Det: {{sucursal.detalles}}</div>
                                 <div >Encargado(a): {{sucursal.encargado}}</div>
+                                <a href="{% url 'admin_app:corted' sucursal.id %}" class="link">
                                 
-                                <a href="admin/" class="link">
                                 <div class="panel-footer">
-                                <span class="pull-left">Ver detalles</span>
+                                <span class="pull-left">Ver detalle corte</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                  </a>
                                  </div>

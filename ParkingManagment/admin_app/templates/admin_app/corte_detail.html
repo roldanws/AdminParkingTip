@@ -1,0 +1,31 @@
+{% extends "admin_app/admin.html" %}
+{% load static %}
+{% block content %}
+
+
+
+
+        <div class="row">
+ 
+                <div class="col-lg-12">
+                    <h1 class="page-header">Corte {{corte.created}}</h4>
+                    <h2 class="page-header">Ingreso: {{corte.ingreso}}</h2>
+                    <h3 class="page-header">Desglose: <br> <br> {{corte.detalles|safe}}</h3>
+                    <h4 class="page-header">Turno: {{corte.turno}} </h4>
+                    <h4 class="page-header">Boletaje: {{corte.boletaje}}</h4>
+                    <h4 class="page-header">Recuperados: {{corte.recuperados}}</h4>
+                    <h4 class="page-header">Caja: {{corte.caja}}</h4>
+                    <h4 class="page-header">Encargado: {{corte.encargado}}</h4>
+                    <h4 class="page-header">Sucursal: {{corte.sucursal_id}}</h4>
+                    
+                </div>
+                <!-- /.col-lg-12 -->
+
+            
+            <link href="{% static 'admin_app/vendor/morrisjs/morris.css' %}" rel="stylesheet">
+            
+    <!-- Morris Charts JavaScript -->
+    <script src="{% static 'admin_app/vendor/raphael/raphael.min.js' %}"></script>
+    <script src="{% static 'admin_app/vendor/morrisjs/morris.min.js' %}"></script>
+    <script src="{% static 'admin_app/data/morris-data.js' %}"></script>
+{% endblock %}
