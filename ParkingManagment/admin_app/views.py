@@ -31,7 +31,7 @@ class SucursalListView(ListView):
         if query:
             sucursales = sucursales.filter(nombre__icontains=query)
         for sucursal in sucursales:
-            corte=Sucursal.objects.get(id=sucursal.id).get_cortes.all()
+            corte=Sucursal.objects.get(id=sucursal.id).get_cortes.filter(turno__icontains="Vespertino")
             if(corte):
                 suma_parcial=corte.aggregate(Sum('ingreso'))['ingreso__sum']
                 suma.append(suma_parcial)
