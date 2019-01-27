@@ -32,6 +32,8 @@ class Corte(models.Model):
     turno = models.CharField(max_length=50, choices=TURNOS, verbose_name = 'Turno')
     boletaje =  models.PositiveSmallIntegerField(verbose_name = 'Boletos Expedidos')
     recuperados = models.PositiveIntegerField(verbose_name = 'Recuperados')
+    tolerancias =  models.PositiveIntegerField(verbose_name = 'Tolerancias')
+    locatarios = models.PositiveIntegerField(verbose_name = 'Locatarios')
     caja = models.PositiveSmallIntegerField(verbose_name = 'Caja')
     created = models.DateTimeField(verbose_name = 'Fecha de corte', default = now)
     updated = models.DateTimeField(auto_now=True, verbose_name = 'Fecha de ultima modificacion')
