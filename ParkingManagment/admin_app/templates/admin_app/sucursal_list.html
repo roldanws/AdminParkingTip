@@ -93,14 +93,14 @@
                                     
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">${{val}}</div>
-                                    <div>{{sucursal.nombre}} </div>
+                                    <h3 >{{sucursal.nombre}}</h3>
+                                    <div> </div>
                                 </div>
                             </div>
                         </div>
                         <a href="{% url 'admin_app:corte' sucursal.id %}" class="link">
                             <div class="panel-footer">
-                                <span class="pull-left"> Cortes </span>
+                                <span class="pull-left"> Cortes  ${{val}}</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
