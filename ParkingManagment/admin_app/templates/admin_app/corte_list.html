@@ -75,7 +75,7 @@
                         var data = []
                         var meses = ['Diciembre','Eenero']  
                     {% endif %}
-                    data.push({ y: '{{sucursal.created|date:"Y-M-d"|slugify}}', a: {{sucursal.ingreso|add:"0"}}}); 
+                    data.push({ y: '{{sucursal.created|date:"Y-m-d"|slugify}}', a: {{sucursal.ingreso|add:"0"}}}); 
                 {% if forloop.last %}
                     $(function() {
                             config = {
@@ -83,14 +83,8 @@
                             xkey: 'y',
                             ykeys: ['a'],
                             labels: ['Matutino'],
-                            xLabels: 'day',
-                            fillOpacity: 0.6,
-                            hideHover: 'auto',
-                            behaveLikeLine: true,
-                            resize: true,
-                            pointFillColors:['#ffffff'],
-                            pointStrokeColors: ['black'],
-                            lineColors:['blue']
+                            xLabels: 'month',
+                            
                         };
                         config.element = 'morris-area-corte';
                         Morris.Line(config);
@@ -111,7 +105,7 @@
                                 
                                 <div class="col-xs-9 text-right">
                                     <h3 >{{sucursal.ingreso}}</h3>
-                                    <div >Fecha de corte: {{sucursal.created|date:"SHORT_DATETIME_FORMAT"}}</div>
+                                    <div >Sucursal {{sucursal.sucursal_id}}</div>
                                     <div >Fecha de corte: {{sucursal.created|date:"DATE_FORMAT"}}</div>
                                 </div>
                             </div>
