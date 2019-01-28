@@ -75,18 +75,17 @@
                         var data = []
                         var meses = ['Diciembre','Eenero']  
                     {% endif %}
-                        {% if sucursal.turno == "Matutino" %}
-                            data.push({ y: '{{sucursal.created|date:"Y-m-d"|slugify}}', a: {{sucursal.ingreso|add:"0"}} , b: 0}); 
-                        {% else %}
-                            data.push({ y: '{{sucursal.created|date:"Y-m-d"|slugify}}', a:0 , b: {{sucursal.ingreso|add:"0"}}}); 
+                        {% if sucursal.turno == "Vespertino" %}
+                            data.push({ y: '{{sucursal.created|date:"Y-m-d"|slugify}}', a: {{sucursal.ingreso|add:"0"}}}); 
+                        
                          {% endif %}
                 {% if forloop.last %}
                     $(function() {
                             config = {
                             data: data,
                             xkey: 'y',
-                            ykeys: ['a','b'],
-                            labels: ['Matutino','Vespertino'],
+                            ykeys: ['a'],
+                            labels: ['Ingreso'],
                             xLabels: 'month',
                             
                         };
