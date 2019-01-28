@@ -50,6 +50,26 @@ class SucursalListView(ListView):
         return context
 
 
+
+
+
+@method_decorator(staff_member_required, name="dispatch")
+class EstadisticasListView(ListView):
+    model = Corte
+    def get_queryset(self):
+        #context['temp'] = self.request.GET.get('temp') 
+
+        self.sucursal_id = get_object_or_404(Sucursal, id=self.kwargs['sucursal_id'])
+        estadistica = Corte.objects.filter(sucursal_id=self.sucursal_id)
+        query = self.request.GET.get('q') 
+        query2 = self.request.GET.get('q2') 
+        #mes = self.request.GET.get('mes') 
+        #anio = self.request.GET.get('anio') 
+        if query:
+            estadistica = estadistica.filter(created__range=[query, query2])
+        return estadistica
+        
+        
 @method_decorator(staff_member_required, name="dispatch")
 class CorteListView(ListView):
     model = Corte
