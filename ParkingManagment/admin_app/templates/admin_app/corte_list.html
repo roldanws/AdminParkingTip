@@ -86,14 +86,14 @@
             {% if "cortes" in request.path %} 
              <div class="col-lg-3 col-md-6">
             {% with sucursal.ingreso as val %}
-            {% if  val <= 100 %}  
+            {% if  val <= 16000 %}  
                  <div class="panel panel-red">
-            {% elif val <= 200 %}   
+            {% elif val <=  18000%}   
                 <div class="panel panel-yellow">
-            {% elif val > 200 %}    
+            {% elif val > 24000 %}    
                 <div class="panel panel-green">
             {% else %}    
-                <div class="panel panel-green">
+                <div class="panel panel-primary">
             {% endif %}
                    
                     
