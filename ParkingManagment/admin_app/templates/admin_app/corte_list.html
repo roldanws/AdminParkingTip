@@ -75,7 +75,7 @@
                         var data = []
                         var meses = ['Diciembre','Eenero']  
                     {% endif %}
-                    data.push({ y: '{{sucursal.created|date:"Y"|slugify}}', a: {{sucursal.ingreso|add:"0"}}}); 
+                    data.push({ y: '{{sucursal.created|date:"M-d"|slugify}}', a: {{sucursal.ingreso|add:"0"}}}); 
                 {% if forloop.last %}
                     $(function() {
                             config = {
@@ -92,7 +92,7 @@
                             lineColors:['blue']
                         };
                         config.element = 'morris-area-corte';
-                        Morris.Area(config);
+                        Morris.Bar(config);
                     });
                 {% endif %}
                 </script>
