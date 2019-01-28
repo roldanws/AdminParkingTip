@@ -52,7 +52,11 @@
             {% endif %}
              /.row -->
 
-             
+              
+
+
+
+
              <div class="col-lg-3 col-md-6">
             {% with sucursal.ingreso as val %}
             {% if  val <= 100 %}  
@@ -65,6 +69,34 @@
                 <div class="panel panel-green">
             {% endif %}
                    
+                    <!--  Graficas de Area    /.row -->
+                <script>                           
+                    {% if forloop.first %}
+                        var data = []
+                        var meses = ['Diciembre','Eenero']  
+                    {% endif %}
+                    data.push({ y: '{{sucursal.created|date:"Y"|slugify}}', a: {{sucursal.ingreso|add:"0"}}}); 
+                {% if forloop.last %}
+                    $(function() {
+                            config = {
+                            data: data,
+                            xkey: 'y',
+                            ykeys: ['a'],
+                            labels: ['Matutino'],
+                            fillOpacity: 0.6,
+                            hideHover: 'auto',
+                            behaveLikeLine: true,
+                            resize: true,
+                            pointFillColors:['#ffffff'],
+                            pointStrokeColors: ['black'],
+                            lineColors:['blue']
+                        };
+                        config.element = 'morris-area-corte';
+                        Morris.Area(config);
+                    });
+                {% endif %}
+                </script>
+
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
@@ -151,7 +183,7 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <div id="morris-area-chart"></div>
+                            <div id="morris-area-corte"></div>
                         </div>
                         <!-- /.panel-body -->
                     </div>

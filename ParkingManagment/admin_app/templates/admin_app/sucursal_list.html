@@ -1,8 +1,8 @@
 {% extends "admin_app/admin.html" %}
 {% load static %}
 {% block content %}
-
-
+                
+                
 
 
         <div class="row">
@@ -15,7 +15,8 @@
                 
                 <!-- /.col-lg-12 -->
         </div>
-        
+
+
             {% for sucursal in sucursal_list %}
             {% with forloop.counter as foo_num %}
             
@@ -45,7 +46,42 @@
             {% else %}    
                 <div class="panel panel-green">
             {% endif %}
-                   
+
+                            <script>
+                             
+                                             
+                            {% if forloop.first %}
+                           
+ 
+                               var data = []
+                               var meses = ['Diciembre','Eenero']
+  
+                           
+                        {% endif %}
+                            data.push({ y: '{{sucursal.created|date:"Y-m-d"|slugify}}', a:  {{sucursal.entradas|add:"0"}}, b: {{sucursal.salidas|add:"0"}}});
+                        {% if forloop.last %}
+                         $(function() {
+                                 config = {
+                                    data: data,
+                                    xkey: 'y',
+                                    ykeys: ['a', 'b'],
+                                    labels: ['Walmart', 'Soriana'],
+                                    xLabels: 'day',
+                                    fillOpacity: 0.6,
+                                    hideHover: 'auto',
+                                    behaveLikeLine: true,
+                                    resize: true,
+                                    pointFillColors:['#ffffff'],
+                                    pointStrokeColors: ['black'],
+                                    lineColors:['blue','red']
+                                };
+                                config.element = 'morris-area-chart';
+                                Morris.Area(config);
+                         });
+                        {% endif %}
+                            </script>
+                             
+
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
@@ -58,7 +94,7 @@
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge">${{val}}</div>
-                                    <div>{{sucursal.nombre}}</div>
+                                    <div>{{sucursal.nombre}} </div>
                                 </div>
                             </div>
                         </div>
@@ -136,6 +172,7 @@
                         </div>
                         <!-- /.panel-body -->
                     </div>
+                    
                     <!-- /.panel -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
