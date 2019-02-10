@@ -13,8 +13,10 @@ class Sucursal(models.Model):
     entradas = models.PositiveSmallIntegerField(verbose_name = 'Entradas')
     salidas = models.PositiveSmallIntegerField(verbose_name = 'Salidas')
     #ingreso_actual = models.PositiveIntegerField(verbose_name = 'Ingresos')
+    supervisor = models.ForeignKey(User, verbose_name = 'Supervisor', on_delete = models.CASCADE, default='1')
     created = models.DateTimeField(auto_now_add=True, verbose_name = 'Fecha de creacion')
     updated = models.DateTimeField(auto_now=True, verbose_name = 'Fecha de ultima modificacion')
+
     class Meta:
         verbose_name = 'sucursal'
         verbose_name_plural = 'sucursales'
