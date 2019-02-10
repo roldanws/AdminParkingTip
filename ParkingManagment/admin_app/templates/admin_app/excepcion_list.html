@@ -1,0 +1,210 @@
+{% extends "admin_app/admin.html" %}
+{% load static %}
+{% block content %}
+ 
+        <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Pensiones y Locatarios {{excepcion_list.0.sucursal_id}}</h1>
+                </div>
+
+                {% if request.GET %} 
+                    {% if excepcion_list %}
+                         <div class="col-lg-12">
+                            <h5  style="color:green">  Ingreso de {{request.GET.q}} a {{request.GET.q2}}</h5>
+                            <hr>
+                        </div>
+                        
+                        {% else %} 
+                        <div class="col-lg-12">
+                            <h5  style="color:#FF0000">  No se encontraron cortes en ese intervalo</h5>
+                             <hr>
+                        </div>
+                        {% endif %}
+                {% endif %}
+                <!-- /.col-lg-12 -->
+        </div>
+        
+        <form class="form-inline my-2 my-lg-0">
+                Fecha inicio
+                <input class="form-control mr-sm-2"  type="date" placeholder="Day" arial-label="Search" name="q" required >
+                 Fecha fin
+                <input class="form-control mr-sm-2" type="date" placeholder="Day" arial-label="Search" name="q2" required>
+                <button class="btn btn-primary my-4 my-sm-0" type="Submit">Filtrar              
+                    <i class="fa fa-search"></i>
+                </button>
+        </form>
+
+        <hr>
+
+            {% for sucursal in excepcion_list %}
+            {% with forloop.counter as foo_num %}
+            {% with sucursal.created|date:"F Y" as monthAndYear%}
+            
+            <!--
+            <div class="col-lg-3 col-md-6">
+            {% if 'Walmart' in sucursal.nombre %}
+                 <div class="panel panel-yellow">
+            {% elif 'Sams' in sucursal.nombre %}    
+                <div class="panel panel-primary">
+            {% elif 'Soriana' in sucursal.nombre %}    
+                <div class="panel panel-red">
+            {% else %}    
+                <div class="panel panel-green">
+            {% endif %}
+             /.row -->
+            <!--  Graficas de Area    /.row -->
+               
+
+            {% if "excepciones" in request.path %} 
+             <div class="col-lg-3 col-md-6">
+            {% with sucursal.ingreso as val %}
+            {% if  val <= 16000 %}  
+                 <div class="panel panel-red">
+            {% elif val <=  18000%}   
+                <div class="panel panel-yellow">
+            {% elif val > 24000 %}    
+                <div class="panel panel-green">
+            {% else %}    
+                <div class="panel panel-primary">
+            {% endif %}
+
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                {% if val >= 18000 %}    
+                                    <i class="fa fa-long-arrow-up fa-3x"></i>
+                                {% else %}    
+                                    <i class="fa fa-long-arrow-down fa-3x"></i>
+                                {% endif %}
+                                    
+                                </div>
+                                 
+                                <div class="col-xs-9 text-right">
+                                    <h3 >{{sucursal.nombre}}</h3>
+                                    <div >Turno {{sucursal.turno}}</div>
+                                    <div >{{sucursal.created|date:"DATE_FORMAT"}}</div>
+                                    <div >Activo: {{sucursal.activo}}</div>
+                                </div>
+                            </div>
+                        </div>
+                                
+                                <a href="{% url 'admin_app:corted' sucursal.id %}" class="link">
+                                
+                                <div class="panel-footer">
+                                <span class="pull-left">Ver detalles</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                 </a>
+                                 </div>
+                                <div class="clearfix"></div>
+                            
+                      
+                    </div>
+                </div>
+              
+            
+            
+                 {% if foo_num|divisibleby:2%}
+                    <!-- /.panel -->
+                 {% endif %}
+                 
+               
+                 
+                {% endwith %}
+                {% endif %} <!-- if graph -->
+                {% endwith %}
+                {% endwith %}
+             {% endfor %}
+             
+
+        
+        <div class="row">
+ 
+                
+                <!-- /.col-lg-12 -->
+        </div>
+        {% if "graph" in request.path %} 
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Ingreso {{excepcion_list.0.sucursal_id}}
+                            <div class="pull-right">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                        Filtro
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu">
+                                        <li><a href="#">Diario</a>
+                                        </li>
+                                        <li><a href="#">Mensual</a>
+                                        </li>
+                                        <li><a href="#">Anual</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Dia de la semana</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div id="morris-area-corte"></div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+
+                    <div class="row">
+ 
+                <div class="col-lg-12">
+                    <h1 class="page-header">Estadisticas</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+        </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Ingreso {{excepcion_list.0.sucursal_id}}
+                            <div class="pull-right">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                        Filtro
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu">
+                                        <li><a href="#">Diario</a>
+                                        </li>
+                                        <li><a href="#">Mensual</a>
+                                        </li>
+                                        <li><a href="#">Anual</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Dia de la semana</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div id="morris-area-corte2"></div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                {% endif %}    
+                        
+                    
+                
+            <link href="{% static 'admin_app/vendor/morrisjs/morris.css' %}" rel="stylesheet">
+            
+    <!-- Morris Charts JavaScript -->
+    <script src="{% static 'admin_app/vendor/raphael/raphael.min.js' %}"></script>
+    <script src="{% static 'admin_app/vendor/morrisjs/morris.min.js' %}"></script>
+    <script src="{% static 'admin_app/data/morris-data.js' %}"></script>
+{% endblock %}

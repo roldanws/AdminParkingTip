@@ -1,5 +1,5 @@
 from django.shortcuts import render,get_object_or_404
-from .models import Sucursal,Corte
+from .models import Sucursal,Corte,Excepcion
 from django.db.models import Sum
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
@@ -12,6 +12,18 @@ class StaffRequiredMixin(object):
     def dispatch(self, request, *args, **kwargs):
         return super(StaffRequiredMixin, self).dispatch(request, *args, **kwargs)
     
+
+@method_decorator(staff_member_required, name="dispatch")
+class ExcepcionListView(ListView):
+    model = Excepcion
+    def get_queryset(self):
+        #context['temp'] = self.request.GET.get('temp') 
+
+        self.sucursal_id = get_object_or_404(Sucursal, id=self.kwargs['sucursal_id'])
+        excepcion = Excepcion.objects.filter(sucursal_id=self.sucursal_id)
+        return excepcion
+
+
 @method_decorator(staff_member_required, name="dispatch")
 class SucursalListView(ListView):
     model = Sucursal

@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'admin_app',
 #    'bootstrap_datepicker_plus',
 #    'bootstrap3',
-    'demo_app.apps.DemoAppConfig',
+#    'demo_app.apps.DemoAppConfig',
     'rest_framework',
 #    'api',
 ]

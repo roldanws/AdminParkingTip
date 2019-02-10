@@ -26,8 +26,7 @@ urlpatterns = [
     path('about-me/', core_views.about, name='about-me'),
     path('contact/', core_views.contact, name='contact'),
     path('', include('admin_app.urls')),
-    path('', include('demo_app.urls_1_8')),
-    path('api/cortes/', include('admin_app.api.urls'), name = 'cortes-api'),
+    path('api/', include('admin_app.api.urls'), name = 'cortes-api'),
     path('admin/', admin.site.urls),
 ]
 

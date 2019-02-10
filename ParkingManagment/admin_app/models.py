@@ -49,3 +49,29 @@ class Corte(models.Model):
 
     def __str__(self):
         return str(self.created)+' '+self.turno
+
+
+
+
+class Excepcion(models.Model):
+    nombre = models.CharField(max_length=200, verbose_name = 'Nombre')
+    TURNOS = (
+        ("Matutino", "Matutino"),
+        ("Nocturno", "Nocturno"),
+        ("Completo", "Completo"),
+    )
+    turno = models.CharField(max_length=50, choices=TURNOS, verbose_name = 'Turno')
+    folio =  models.PositiveSmallIntegerField(verbose_name = 'Folio')
+    activo =  models.BooleanField(verbose_name = 'Activo')
+    created = models.DateTimeField(verbose_name = 'Fecha de pago', default = now)
+    updated = models.DateTimeField(auto_now=True, verbose_name = 'Ultimo Pago')
+    costo = models.DecimalField(verbose_name='Costo', max_digits=15, decimal_places=2)
+    sucursal_id = models.ForeignKey(Sucursal, verbose_name = 'Sucursal', related_name='get_excepcion', on_delete = models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Excepcion'
+        verbose_name_plural = 'Excepciones'
+        ordering = ['-folio']
+
+    def __str__(self):
+        return str(self.nombre)

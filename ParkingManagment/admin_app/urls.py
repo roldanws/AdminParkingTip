@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import SucursalDetailView,CorteListView,SucursalListView,CorteDetailView,EstadisticasListView
+from .views import SucursalDetailView,CorteListView,SucursalListView,CorteDetailView,EstadisticasListView,ExcepcionListView
 
 
 app_name = 'admin_app'
@@ -21,6 +21,7 @@ urlpatterns = [
     path('sucursal/<int:pk>/', SucursalDetailView.as_view(), name='sucursal'),
     path('corte/<int:pk>/', CorteDetailView.as_view(), name='corted'),
     path('cortes/<int:sucursal_id>/', CorteListView.as_view(), name='corte'),    
+    path('excepciones/<int:sucursal_id>/', ExcepcionListView.as_view(), name='excepcion'),    
     path('graph/<int:sucursal_id>/', EstadisticasListView.as_view(), name='estadisticas-list'),    
     path('', SucursalListView.as_view(), name='index'),    
     #path('', SucursalListView.as_view(), name='sucursal'),
