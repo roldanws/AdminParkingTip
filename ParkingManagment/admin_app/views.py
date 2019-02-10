@@ -28,7 +28,7 @@ class ExcepcionListView(ListView):
 class SucursalListView(ListView):
     model = Sucursal
     def get_queryset(self):
-        sucursales = Sucursal.objects.filter(user=self.request.user)
+        sucursales = Sucursal.objects.filter(supervisor=self.request.user)
         query = self.request.GET.get('s')  
         if query:
             sucursales = sucursales.filter(nombre__icontains=query)
