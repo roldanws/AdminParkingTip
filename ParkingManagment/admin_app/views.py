@@ -88,7 +88,7 @@ class EstadisticasListView(ListView):
 @method_decorator(staff_member_required, name="dispatch")
 class CorteListView(ListView):
     model = Corte
-    paginate_by = 16
+    paginate_by = 12
     def get_queryset(self):
         #context['temp'] = self.request.GET.get('temp') 
 
