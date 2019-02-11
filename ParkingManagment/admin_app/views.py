@@ -101,6 +101,28 @@ class CorteListView(ListView):
             cortes = cortes.filter(created__range=[query, query2])
             
         return cortes
+    def get_context_data(self, **kwargs):
+        corte_query=self.get_queryset()
+            
+        sucursales = Sucursal.objects.all()
+        suma = []
+        total=0
+        cortes=corte_query.filter(turno__icontains="Vespertino")
+        ingreso=cortes.aggregate(Sum('ingreso'))['ingreso__sum']
+        boletaje=cortes.aggregate(Sum('boletaje'))['boletaje__sum']
+        recuperados=cortes.aggregate(Sum('recuperados'))['recuperados__sum']
+        tolerancias=cortes.aggregate(Sum('tolerancias'))['tolerancias__sum']
+        locatarios=cortes.aggregate(Sum('locatarios'))['locatarios__sum']
+        
+        
+        context = super().get_context_data(**kwargs)
+        
+        context['ingreso']=ingreso
+        context['boletaje']=boletaje
+        context['recuperados']=recuperados
+        context['tolerancias']=tolerancias
+        context['locatarios']=locatarios
+        return context
 
 @method_decorator(staff_member_required, name="dispatch")
 class SucursalDetailView(DetailView):

@@ -4,7 +4,7 @@
  
         <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Ingreso {{corte_list.0.sucursal_id}}</h1>
+                    <h1 class="page-header">Cortes {{corte_list.0.sucursal_id}}</h1>
                 </div>
 
                 {% if request.GET %} 
@@ -21,6 +21,15 @@
                         </div>
                         {% endif %}
                 {% endif %}
+                <div class="col-lg-12">
+                    <h5 >Ingreso: {{ingreso}}  </h5>
+                    <h5 >Boletaje: {{boletaje}}</h5>
+                    <h5 >Cobrados: {{recuperados}}</h5>
+                    <h5 >Tolerancias: {{tolerancias}}</h5>
+                    <h5 >Locatarios: {{locatarios}}</h5>
+
+                    
+                </div>
                 <!-- /.col-lg-12 -->
         </div>
         
