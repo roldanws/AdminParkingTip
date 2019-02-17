@@ -133,8 +133,10 @@ class CorteListView(ListView):
         context['recuperados']=recuperados
         context['tolerancias']=tolerancias
         context['locatarios']=locatarios
-        if(cortes):
+        try:
             context['diferencia']=int(boletaje)-int(recuperados)-int(tolerancias)-int(locatarios)
+        except:
+            pass
         return context
 
 @method_decorator(staff_member_required, name="dispatch")
