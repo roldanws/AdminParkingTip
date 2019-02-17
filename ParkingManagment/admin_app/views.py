@@ -83,6 +83,8 @@ class EstadisticasListView(ListView):
         if query:
             estadistica = estadistica.filter(created__range=[query, query2])
         return estadistica
+
+    
         
         
 @method_decorator(staff_member_required, name="dispatch")
@@ -131,7 +133,8 @@ class CorteListView(ListView):
         context['recuperados']=recuperados
         context['tolerancias']=tolerancias
         context['locatarios']=locatarios
-        context['cancelados']=boletaje-recuperados-tolerancias-locatarios
+        if(cortes):
+            context['cancelados']=int(boletaje)-int(recuperados)-int(tolerancias)-int(locatarios)
         return context
 
 @method_decorator(staff_member_required, name="dispatch")
@@ -143,9 +146,16 @@ class SucursalDetailView(DetailView):
 @method_decorator(staff_member_required, name="dispatch")
 class CorteDetailView(DetailView):
     model = Corte
+    def get_context_data(self, **kwargs):
+        corte=self.get_queryset()
+            
+        context = super().get_context_data(**kwargs)
+        if(corte):
+            context['cancelados']=corte[0].boletaje-corte[0].recuperados-corte[0].tolerancias-corte[0].locatarios
+        return context
     #sucursal = Sucursal.objects.get(id=sucursal_id)
     #return render(request, 'admin_app/page_details.html',{'sucursal':sucursal})
-    
+   
 
 def tables(request):
     return render(request, 'admin_app/tables.html')
