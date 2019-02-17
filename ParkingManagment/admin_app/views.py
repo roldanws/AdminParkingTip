@@ -99,17 +99,18 @@ class CorteListView(ListView):
         query2 = self.request.GET.get('q2') 
         #mes = self.request.GET.get('mes') 
         #anio = self.request.GET.get('anio') 
-        if query:
+        if turno:
+            cortes = cortes.filter(turno__icontains=turno)
+        elif query:
             if query2:
                 cortes = cortes.filter(created__range=[query, query2])
             else:
                 cortes = cortes.filter(
                      Q(created__date=query)
                     )
-        elif turno:
-            cortes = cortes.filter(turno__icontains=turno)
-            
-        return cortes
+        
+        else:    
+            return cortes
     def get_context_data(self, **kwargs):
         corte_query=self.get_queryset()
             
