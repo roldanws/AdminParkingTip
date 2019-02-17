@@ -5,7 +5,13 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Sucursal(models.Model):
+    TIPOS = (
+        ("Automatizado", "Automatizado"),
+        ("Semi-automatizado", "Semi-automatizado"),
+        ("Aportacion", "Aportacion"),
+    )
     nombre = models.CharField(max_length=200, verbose_name = 'Sucursal')
+    tipo = models.CharField(max_length=200, choices= TIPOS, verbose_name = 'Tipo' ,default="Automatizado")
     localidad = models.CharField(max_length=200, verbose_name = 'Estado')
     telefono = models.CharField(max_length=200, verbose_name = 'Telefono')
     #tipo = models.PositiveSmallIntegerField(verbose_name = 'Tipo')
@@ -34,15 +40,21 @@ class Corte(models.Model):
     turno = models.CharField(max_length=50, choices=TURNOS, verbose_name = 'Turno')
     boletaje =  models.PositiveSmallIntegerField(verbose_name = 'Boletos Expedidos')
     recuperados = models.PositiveIntegerField(verbose_name = 'Recuperados')
-    tolerancias =  models.PositiveIntegerField(verbose_name = 'Tolerancias')
-    locatarios = models.PositiveIntegerField(verbose_name = 'Locatarios')
+    sellados = models.PositiveIntegerField(verbose_name = 'Sellados', blank="True", default=0)
+    noSellados = models.PositiveIntegerField(verbose_name = 'No sellados', blank="True", default=0)
+    incompletos = models.PositiveIntegerField(verbose_name = 'Incompletos', blank="True", default=0)
+    propina = models.PositiveIntegerField(verbose_name = 'Propina', blank="True", default=0)
+    sinPropina = models.PositiveIntegerField(verbose_name = 'Sin propina', blank="True", default=0)
+    tolerancias =  models.PositiveIntegerField(verbose_name = 'Tolerancias', blank="True", default=0)
+    locatarios = models.PositiveIntegerField(verbose_name = 'Locales', blank="True", default=0)
+    cortesias = models.PositiveIntegerField(verbose_name = 'Cortesias', blank="True", default=0)
     caja = models.PositiveSmallIntegerField(verbose_name = 'Caja')
-    created = models.DateTimeField(verbose_name = 'Fecha de corte', default = now)
-    updated = models.DateTimeField(auto_now=True, verbose_name = 'Fecha de ultima modificacion')
     ingreso = models.DecimalField(verbose_name='Ingreso', max_digits=15, decimal_places=2)
     detalles = models.TextField(verbose_name='Detalles')
     encargado = models.ForeignKey(User, verbose_name = 'Encargado', on_delete = models.CASCADE)
     sucursal_id = models.ForeignKey(Sucursal, verbose_name = 'Sucursal', related_name='get_cortes', on_delete = models.CASCADE)
+    created = models.DateTimeField(verbose_name = 'Fecha de corte', default = now)
+    updated = models.DateTimeField(auto_now=True, verbose_name = 'Fecha de ultima modificacion')
 
     class Meta:
         verbose_name = 'Corte'

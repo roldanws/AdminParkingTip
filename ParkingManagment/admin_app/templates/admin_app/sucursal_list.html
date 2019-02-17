@@ -1,6 +1,7 @@
 {% extends "admin_app/admin.html" %}
 {% load static %}
 {% block content %}
+
                 
                 
 
@@ -85,10 +86,12 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                {% if val >= 100 %}    
-                                    <i class="fa fa-long-arrow-up fa-5x"></i>
+                                {% if sucursal.tipo == "Automatizado" %}    
+                                    <i class="fa fa-cogs fa-3x"></i>
+                                {% elif  sucursal.tipo == "Semi-automatizado"%}    
+                                    <i class="fa fa-hand-holding-usd fa-3x"></i>
                                 {% else %}    
-                                    <i class="fa fa-long-arrow-down fa-5x"></i>
+                                    <i class="fa fa-hand-holding-heart fa-3x"></i>
                                 {% endif %}
                                     
                                 </div>
@@ -183,9 +186,11 @@
                     <!-- /.panel -->
                     
             <link href="{% static 'admin_app/vendor/morrisjs/morris.css' %}" rel="stylesheet">
+            <link href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" rel="stylesheet">
             
     <!-- Morris Charts JavaScript -->
     <script src="{% static 'admin_app/vendor/raphael/raphael.min.js' %}"></script>
     <script src="{% static 'admin_app/vendor/morrisjs/morris.min.js' %}"></script>
     <script src="{% static 'admin_app/data/morris-data.js' %}"></script>
+    
 {% endblock %}
