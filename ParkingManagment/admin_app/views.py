@@ -109,8 +109,7 @@ class CorteListView(ListView):
                      Q(created__date=query)
                     )
         
-        else:    
-            return cortes
+        return cortes
     def get_context_data(self, **kwargs):
         corte_query=self.get_queryset()
             
