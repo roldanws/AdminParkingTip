@@ -131,7 +131,8 @@ class CorteListView(ListView):
         context['recuperados']=recuperados
         context['tolerancias']=tolerancias
         context['locatarios']=locatarios
-        context['cancelados']=boletaje-recuperados-tolerancias-locatarios
+        if(cortes):
+            context['cancelados']=boletaje-recuperados-tolerancias-locatarios
         return context
 
 @method_decorator(staff_member_required, name="dispatch")
