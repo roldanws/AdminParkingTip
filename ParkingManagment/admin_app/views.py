@@ -134,7 +134,7 @@ class CorteListView(ListView):
         context['tolerancias']=tolerancias
         context['locatarios']=locatarios
         if(cortes):
-            context['cancelados']=int(boletaje)-int(recuperados)-int(tolerancias)-int(locatarios)
+            context['diferencia']=int(boletaje)-int(recuperados)-int(tolerancias)-int(locatarios)
         return context
 
 @method_decorator(staff_member_required, name="dispatch")
@@ -147,11 +147,10 @@ class SucursalDetailView(DetailView):
 class CorteDetailView(DetailView):
     model = Corte
     def get_context_data(self, **kwargs):
-        corte=self.get_queryset()
-            
+        corte=self.get_object()
         context = super().get_context_data(**kwargs)
         if(corte):
-            context['cancelados']=corte[0].boletaje-corte[0].recuperados-corte[0].tolerancias-corte[0].locatarios
+            context['diferencia']=corte.boletaje-corte.recuperados-corte.tolerancias-corte.locatarios
         return context
     #sucursal = Sucursal.objects.get(id=sucursal_id)
     #return render(request, 'admin_app/page_details.html',{'sucursal':sucursal})
