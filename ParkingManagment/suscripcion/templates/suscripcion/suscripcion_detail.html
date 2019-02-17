@@ -1,0 +1,29 @@
+{% extends "admin_app/admin.html" %}
+{% load static %}
+{% block content %}
+
+
+
+
+        <div class="row">
+ 
+                <div class="col-lg-12">
+                    <h1 class="page-header">Corte {{suscripcion.created}}</h4>
+                    <h2 class="page-header">Tipo: {{suscripcion.tipo}}</h2>
+                    <h3 class="page-header">Clave: {{suscripcion.clave|safe}}</h3>
+                    <h4 class="page-header">Activo: {{suscripcion.activo}} </h4>
+                    <h4 class="page-header">Ulrima modificacion: {{suscripcion.updated}}</h4>
+                    <h4 class="page-header">Costo: {{suscripcion.costo}}</h4>
+                    <h4 class="page-header">Sucursal : {{suscripcion.sucursal_id}}</h4>
+                   
+                </div>
+                <!-- /.col-lg-12 -->
+
+            
+            <link href="{% static 'admin_app/vendor/morrisjs/morris.css' %}" rel="stylesheet">
+            
+    <!-- Morris Charts JavaScript -->
+    <script src="{% static 'admin_app/vendor/raphael/raphael.min.js' %}"></script>
+    <script src="{% static 'admin_app/vendor/morrisjs/morris.min.js' %}"></script>
+    <script src="{% static 'admin_app/data/morris-data.js' %}"></script>
+{% endblock %}

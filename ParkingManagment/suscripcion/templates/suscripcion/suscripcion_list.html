@@ -1,0 +1,151 @@
+{% extends "admin_app/admin.html" %}
+{% load static %}
+{% block content %}
+ 
+        <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Suscripciones {{suscripcion_list.0.sucursal_id}}</h1>
+                </div>
+
+                {% if request.GET %} 
+                    {% if suscripcion_list %}
+                         
+                        
+                        {% else %} 
+                        <div class="col-lg-12">
+                            <h5  style="color:#FF0000">  Sin suscriptores</h5>
+                             <hr>
+                        </div>
+                        {% endif %}
+                {% endif %}
+
+        </div>
+        
+        
+
+        <hr>
+
+            {% for sucursal in suscripcion_list %}
+            {% with forloop.counter as foo_num %}
+            {% with sucursal.created|date:"F Y" as monthAndYear%}
+            
+            <!--
+            <div class="col-lg-3 col-md-6">
+            {% if 'Walmart' in sucursal.nombre %}
+                 <div class="panel panel-yellow">
+            {% elif 'Sams' in sucursal.nombre %}    
+                <div class="panel panel-primary">
+            {% elif 'Soriana' in sucursal.nombre %}    
+                <div class="panel panel-red">
+            {% else %}    
+                <div class="panel panel-green">
+            {% endif %}
+             /.row -->
+            <!--  Graficas de Area    /.row -->
+               
+
+             <div class="col-lg-3 col-md-6">
+            {% with sucursal.activo as val %}
+            {% if  val  %}  
+                 <div class="panel panel-green">
+            {% else %}    
+                <div class="panel panel-red">
+            {% endif %}
+
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                {% if sucursal.tipo == "Pensionado" %}    
+                                   <i class="fa fa-product-hunt fa-3x"></i>
+                                {% else %}    
+                                    <i class="fa fa-home fa-3x"></i>
+                                {% endif %}
+                                    
+                                </div>
+                                 
+                                <div class="col-xs-9 text-right">
+                                    <h3 >{{sucursal.nombre}}</h3>
+                                    <h4 >{{sucursal.clave}}</h4>
+                                    <h4 >{{sucursal.costo}}</h4>
+                                    <h4 >Dia de corte: {{sucursal.created|date:"d"}}</h4>
+                                </div>
+                            </div>
+                        </div>
+                                
+                                <a href="{% url 'suscripcion:detail' sucursal.id %}" class="link">
+                                
+                                <div class="panel-footer">
+                                <span class="pull-left">Ver detalles</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                 </a>
+                                 </div>
+                                <div class="clearfix"></div>
+                            
+                      
+                    </div>
+                </div>
+              
+            
+            
+                 {% if foo_num|divisibleby:2%}
+                    <!-- /.panel -->
+                 {% endif %}
+                 
+               
+                 
+                {% endwith %}
+                {% endwith %}
+                {% endwith %}
+             {% endfor %}
+             
+
+        
+        <div class="row">
+        <!-- Menú de paginación -->
+        
+                <!-- /.col-lg-12 -->
+        </div>
+                           
+            {% if is_paginated %}
+             <div align="center" class="row">
+                <div class="col-lg-12 align-center">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item ">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">&laquo;</a>
+                        </li>
+                    {% endif %}
+                    {% for i in paginator.page_range %}
+                        <li class="page-item {% if page_obj.number == i %}active{% endif %}">
+                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                        </li>
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                        <li class="page-item ">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">&raquo;</a>
+                        </li>
+                    {% endif %}
+                    </ul>
+                </nav>
+                </div>
+                </div>
+            {% endif %}
+                
+
+
+            <link href="{% static 'admin_app/vendor/morrisjs/morris.css' %}" rel="stylesheet">
+            
+    <!-- Morris Charts JavaScript -->
+    <script src="{% static 'admin_app/vendor/raphael/raphael.min.js' %}"></script>
+    <script src="{% static 'admin_app/vendor/morrisjs/morris.min.js' %}"></script>
+    <script src="{% static 'admin_app/data/morris-data.js' %}"></script>
+{% endblock %}

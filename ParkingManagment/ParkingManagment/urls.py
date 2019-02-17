@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from core import views as core_views
+from suscripcion.urls import suscripcion_patterns
 from sucursales import views as sucursales_views
 from django.urls import path,include
 from rest_framework.authtoken import views
@@ -32,4 +33,5 @@ urlpatterns = [
 
 urlpatterns += [
     path('api/auth', include('rest_framework.urls'), name='rest_framework'),
+    path('', include(suscripcion_patterns))
 ]

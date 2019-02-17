@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 #    'bootstrap3',
 #    'demo_app.apps.DemoAppConfig',
     'rest_framework',
+    'suscripcion'
 #    'api',
 ]
 

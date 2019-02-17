@@ -1,6 +1,6 @@
 from django.shortcuts import render,get_object_or_404
 from .models import Sucursal,Corte,Excepcion
-from django.db.models import Sum
+from django.db.models import Sum, Q
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.contrib.admin.views.decorators import staff_member_required
@@ -94,12 +94,20 @@ class CorteListView(ListView):
 
         self.sucursal_id = get_object_or_404(Sucursal, id=self.kwargs['sucursal_id'])
         cortes = Corte.objects.filter(sucursal_id=self.sucursal_id)
+        turno = self.request.GET.get('s') 
         query = self.request.GET.get('q') 
         query2 = self.request.GET.get('q2') 
         #mes = self.request.GET.get('mes') 
         #anio = self.request.GET.get('anio') 
         if query:
-            cortes = cortes.filter(created__range=[query, query2])
+            if query2:
+                cortes = cortes.filter(created__range=[query, query2])
+            else:
+                cortes = cortes.filter(
+                     Q(created__date=query)
+                    )
+        elif turno:
+            cortes = cortes.filter(turno__icontains=turno)
             
         return cortes
     def get_context_data(self, **kwargs):
@@ -123,6 +131,7 @@ class CorteListView(ListView):
         context['recuperados']=recuperados
         context['tolerancias']=tolerancias
         context['locatarios']=locatarios
+        context['cancelados']=boletaje-recuperados-tolerancias-locatarios
         return context
 
 @method_decorator(staff_member_required, name="dispatch")

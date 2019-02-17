@@ -10,7 +10,7 @@ urlpatterns = [
     path('cortes/<int:pk>/', CorteDetailApiView.as_view(), name='detail'),
     path('cortes/create/', CorteCreateApiView.as_view(), name='create'), 
 
-    path('excepciones/', ExcepcionListApiView.as_view(), name='list'), 
+    path('excepciones/<int:sucursal_id>/', ExcepcionListApiView.as_view(), name='list'), 
     #path('(?P<pk>\d+)/', CorteDetailApiView.as_view(), name='detail'),   
     path('excepciones/<int:pk>/', ExcepcionDetailApiView.as_view(), name='detail'),
     path('excepciones/create/', ExcepcionCreateApiView.as_view(), name='create'),
