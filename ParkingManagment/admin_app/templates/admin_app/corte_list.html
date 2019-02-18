@@ -1,6 +1,7 @@
 {% extends "admin_app/admin.html" %}
 {% load static %}
 {% block content %}
+{% load sumar %}
  
         <div class="row">
                 <div class="col-lg-12">
@@ -90,13 +91,14 @@
                                         <th>Locatarios </th>
                                         <th style="color:#FF0000">Diferencia </th>
                                         <th>Fecha </th>
+                                        <th>Status </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                     
             {% for sucursal in corte_list %}       
                                     <tr class="odd gradeX">
-                                        <td>{{sucursal.turno}}</td>
+                                        <td class="panel panel-red">{{sucursal.turno}}</td>
                                         <td>{{sucursal.caja}}</td>
                                         <td>{{sucursal.ingreso}}</td>
                                         {% if  request.GET.detalles == "on" %}    
@@ -108,8 +110,14 @@
                                         <td>{{sucursal.recuperados}}</td>
                                         <td class="center">{{sucursal.tolerancias}}</td>
                                         <td class="center">{{sucursal.locatarios}}</td>
-                                        <td class="center">{{diferencia}}</td>
+                                        <td class="center"> {% sumar sucursal %} </td>
                                         <td class="center">{{sucursal.created|date:"Y-m-d"|slugify}}</td>
+                                        <td class="center">{% if sucursal.ingreso >= 18000 %}    
+                                            <i class="fa fa-angle-double-downn fa-2x"></i>
+                                            {% else %}   
+                                                <i class="fa fa-long-arrow-down fa-2x"></i>
+                                            {% endif %}
+                                        </td>
                                     </tr>
 
             {% endfor %}
