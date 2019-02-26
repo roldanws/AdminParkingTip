@@ -1,7 +1,8 @@
 from django.shortcuts import render,get_object_or_404
 from rest_framework.generics import ListAPIView,RetrieveAPIView,CreateAPIView
 from admin_app.models import Corte, Excepcion, Sucursal
-from .serializers import CorteListSerializer,CorteDetailSerializer,CorteCreateSerializer , ExcepcionListSerializer, ExcepcionDetailSerializer, ExcepcionCreateSerializer
+from suscripcion.models import Suscripcion
+from .serializers import CorteListSerializer,CorteDetailSerializer,CorteCreateSerializer , SuscripcionListSerializer,SuscripcionDetailSerializer, SuscripcionCreateSerializer
 
 
 
@@ -26,23 +27,23 @@ class CorteCreateApiView(CreateAPIView):
 
 
 
-class  ExcepcionListApiView(ListAPIView):
-    serializer_class = ExcepcionListSerializer
+class SuscripcionListApiView(ListAPIView):
+    serializer_class = SuscripcionListSerializer
     def get_queryset(self):
         self.sucursal_id = get_object_or_404(Sucursal, id=self.kwargs['sucursal_id'])
-        excepciones = Excepcion.objects.filter(sucursal_id=self.sucursal_id)
+        suscripciones = Suscripcion.objects.filter(sucursal_id=self.sucursal_id)
         folio = self.request.GET.get('folio', None)
         print(self.sucursal_id)
         if folio is not None:
-            excepciones = excepciones.filter(folio=folio)
-        return excepciones
+            suscripciones = suscripciones.filter(folio=folio)
+        return suscripciones
 
     
 
-class ExcepcionDetailApiView(RetrieveAPIView):
-    queryset = Excepcion.objects.all()
-    serializer_class = ExcepcionDetailSerializer
+class SuscripcionDetailApiView(RetrieveAPIView):
+    queryset = Suscripcion.objects.all()
+    serializer_class = SuscripcionDetailSerializer
 
-class ExcepcionCreateApiView(CreateAPIView):
-    queryset = Excepcion.objects.all()
-    serializer_class =  ExcepcionCreateSerializer
+class SuscripcionCreateApiView(CreateAPIView):
+    queryset = Suscripcion.objects.all()
+    serializer_class =  SuscripcionCreateSerializer

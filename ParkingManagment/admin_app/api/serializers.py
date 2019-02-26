@@ -1,4 +1,5 @@
-from admin_app.models import Corte,Excepcion
+from admin_app.models import Corte
+from suscripcion.models import Suscripcion
 from rest_framework.serializers import ModelSerializer
 
 
@@ -19,20 +20,20 @@ class CorteCreateSerializer(ModelSerializer):
         
 
 
-class ExcepcionListSerializer(ModelSerializer):
+class SuscripcionListSerializer(ModelSerializer):
     class Meta:
-        model = Excepcion
-        fields = ['nombre','turno','folio','activo','created','updated','costo','sucursal_id']
+        model = Suscripcion
+        fields = ['nombre','apellidos','turno','tipo','clave','activo','created','updated','costo','sucursal_id']
         
-class ExcepcionDetailSerializer(ModelSerializer):
+class SuscripcionDetailSerializer(ModelSerializer):
     class Meta:
-        model = Excepcion
-        fields = ['nombre','turno','folio','activo','created','updated','costo','sucursal_id']
+        model = Suscripcion
+        fields = ['nombre','apellidos','turno','tipo','clave','activo','created','updated','costo','sucursal_id']
         
-class ExcepcionCreateSerializer(ModelSerializer):
+class SuscripcionCreateSerializer(ModelSerializer):
     class Meta:
-        model = Excepcion
-        fields = ['nombre','turno','folio','activo','created','updated','costo','sucursal_id']
+        model = Suscripcion
+        fields = ['nombre','apellidos','turno','tipo','clave','activo','created','updated','costo','sucursal_id']
         
 
 

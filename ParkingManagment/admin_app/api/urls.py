@@ -1,7 +1,7 @@
 from django.urls import path
 from django.conf.urls import url
 from django.contrib import admin
-from .views import CorteListApiView, CorteDetailApiView, CorteCreateApiView, ExcepcionListApiView, ExcepcionDetailApiView, ExcepcionCreateApiView
+from .views import CorteListApiView, CorteDetailApiView, CorteCreateApiView, SuscripcionListApiView, SuscripcionDetailApiView, SuscripcionCreateApiView
 
 app_name = 'admin_app'
 urlpatterns = [
@@ -10,8 +10,8 @@ urlpatterns = [
     path('cortes/<int:pk>/', CorteDetailApiView.as_view(), name='detail'),
     path('cortes/create/', CorteCreateApiView.as_view(), name='create'), 
 
-    path('excepciones/<int:sucursal_id>/', ExcepcionListApiView.as_view(), name='list'), 
+    path('suscripciones/<int:sucursal_id>/', SuscripcionListApiView.as_view(), name='list'), 
     #path('(?P<pk>\d+)/', CorteDetailApiView.as_view(), name='detail'),   
-    path('excepciones/<int:pk>/', ExcepcionDetailApiView.as_view(), name='detail'),
-    path('excepciones/create/', ExcepcionCreateApiView.as_view(), name='create'),
+    path('suscripcion/<int:pk>/', SuscripcionDetailApiView.as_view(), name='detail'),
+    path('suscripcion/create/', SuscripcionCreateApiView.as_view(), name='create'),
 ]
