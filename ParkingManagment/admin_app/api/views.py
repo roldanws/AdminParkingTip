@@ -32,10 +32,10 @@ class SuscripcionListApiView(ListAPIView):
     def get_queryset(self):
         self.sucursal_id = get_object_or_404(Sucursal, id=self.kwargs['sucursal_id'])
         suscripciones = Suscripcion.objects.filter(sucursal_id=self.sucursal_id)
-        folio = self.request.GET.get('folio', None)
+        clave = self.request.GET.get('clave', None)
         print(self.sucursal_id)
-        if folio is not None:
-            suscripciones = suscripciones.filter(folio=folio)
+        if clave is not None:
+            suscripciones = suscripciones.filter(clave=clave)
         return suscripciones
 
     
