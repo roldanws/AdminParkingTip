@@ -5,7 +5,7 @@ from admin_app.models import Sucursal
 
 
 class Suscripcion(models.Model):
-    nombre = models.CharField(max_length=200, verbose_name = 'Nombre')
+    nombre = models.CharField(max_length=200, verbose_name = 'Nombre(s)')
     apellidos = models.CharField(max_length=200, verbose_name = 'Apellidos', default="-")
     TURNOS = (
         ("Matutino", "Matutino"),
