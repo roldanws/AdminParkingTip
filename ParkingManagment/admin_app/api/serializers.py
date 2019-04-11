@@ -6,17 +6,17 @@ from rest_framework.serializers import ModelSerializer
 class CorteListSerializer(ModelSerializer):
     class Meta:
         model = Corte
-        fields = ['turno','boletaje','recuperados','tolerancias','locatarios','caja','created','updated','ingreso','detalles','encargado','sucursal_id']
+        fields = ['turno','boletaje','recuperados','sellados','noSellados','incompletos','propina','sinPropina','tolerancias','locatarios','cortesias','caja','created','updated','ingreso','detalles','encargado','sucursal_id']
         
 class CorteDetailSerializer(ModelSerializer):
     class Meta:
         model = Corte
-        fields = ['turno','boletaje','recuperados','tolerancias','locatarios','caja','created','updated','ingreso','detalles','encargado','sucursal_id']
+        fields = ['turno','boletaje','recuperados','sellados','noSellados','incompletos','propina','sinPropina','tolerancias','locatarios','cortesias','caja','created','updated','ingreso','detalles','encargado','sucursal_id']
         
 class CorteCreateSerializer(ModelSerializer):
     class Meta:
         model = Corte
-        fields = ['turno','boletaje','recuperados','tolerancias','locatarios','caja','created','updated','ingreso','detalles','encargado','sucursal_id']
+        fields = ['turno','boletaje','recuperados','sellados','noSellados','incompletos','propina','sinPropina','tolerancias','locatarios','cortesias','caja','created','updated','ingreso','detalles','encargado','sucursal_id']
         
 
 
