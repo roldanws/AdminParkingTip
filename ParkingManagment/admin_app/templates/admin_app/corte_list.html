@@ -95,8 +95,14 @@
                                         </th>
                                         <th>Boletaje</th>
                                         <th>Cobrados </th>
+                                        <th>Sellados </th>
+                                        <th>No sellados </th>
+                                        <th>Incompletos </th>
+                                        <th>Propina </th>
+                                        <th>Sin Propina </th>
                                         <th>Tolerancias</th>
                                         <th>Locatarios </th>
+                                        <th>Cortesias </th>
                                         <th style="color:#FF0000">Diferencia </th>
                                         <th>Fecha </th>
                                         <th>Status </th>
@@ -116,8 +122,14 @@
                                         {% endif  %}  
                                         <td>{{sucursal.boletaje}}</td>
                                         <td>{{sucursal.recuperados}}</td>
+                                        <td>{{sucursal.sellados}}</td>
+                                        <td>{{sucursal.noSellados}}</td>
+                                        <td>{{sucursal.incompletos}}</td>
+                                        <td>{{sucursal.propina}}</td>
+                                        <td>{{sucursal.sinPropina}}</td>
                                         <td class="center">{{sucursal.tolerancias}}</td>
                                         <td class="center">{{sucursal.locatarios}}</td>
+                                        <td class="center">{{sucursal.cortesias}}</td>
                                         <td class="center"> {% sumar sucursal %} </td>
                                         <td class="center">{{sucursal.created|date:"Y-m-d"|slugify}}</td>
                                         <td class="center">{% if sucursal.ingreso >= 18000 %}    
